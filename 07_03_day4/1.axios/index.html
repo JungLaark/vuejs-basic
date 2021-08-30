@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch</title>
+    <script src="../../vue/_vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+    <div id="wrap">
+        <div id="app">
+            
+            <table>
+                <tr>
+                    <td>학번</td>
+                    <td>이름</td>
+                    <td>kor</td>
+                </tr>
+                <caption>성적</caption>
+                <tr v-for="item in grade">
+                    <td>{{item.학번}}</td>
+                    <td>{{item.이름}}</td>
+                    <td>{{item.kor}}</td>
+                </tr>
+            </table>
+        </div>
+        <script>
+            new Vue({
+                el : "#app",
+                data : {
+                   grade : [],
+                   phone : [],
+                   todo : []
+                },
+                created : function(){
+                    axios.get("./data/data.json")
+                    .then((res)=>{
+                        console.log(res.data.성적표);
+                        console.log(res.data.성적표[0].이름);
+                        console.log(res.data.성적표[0].kor);
+                        //axios 는 data 라는 속성이 하나 붙는다.
+                        //jquery -> each 
+                        //js -> foreach
+
+                        //this를 놓치지 말자 this 빼먹으니 안되넼ㅋㅋ 당연한거 아님 
+                        this.grade = res.data.성적표;
+                    })
+
+                }
+            });
+        </script>
+        <style>
+            /*기본 설정*/
+            * {margin: 0;padding: 0;vertical-align: middle;border: 0;}
+            html, body{width: 100%; height: 100%;}
+            body{font: normal 14px/1 'arial', '맑은 고딕';color: #212121; background: #fff;}
+            /*부가 설정*/
+            #wrap{ width: 100%; height: 100%;}
+            #app{ width: 100%; height: 100%;}
+            #app h1{ text-align: center; font-size: 30px; padding: 100px 0;}
+
+            table{margin:30px auto; border-collapse: collapse; border: 2px solid #000;}
+            table th,
+            table td{padding: 15px 30px; text-align: center; border: 1px solid #ccc;}
+            table th{background: #f0f0f0; height: 50px; padding: 0; border-bottom: 1px solid #000;}
+            table tr:hover{background: #f0f0f0;} /*row*/
+
+            table caption{padding: 20px 0; font-size: 30px; font-weight: bold;}
+
+        </style>
+    </div>
+</body>
+</html>

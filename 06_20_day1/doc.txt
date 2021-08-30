@@ -1,0 +1,55 @@
+2021.06.20 일요일 
+재직자 과정 수업내용 -> 1시 30분 까지 점심시간 
+192.168.0.59
+
+ 1교시
+ - daily todo 앱 만드는 것이 목표 -> back 단은 php와 연결 
+ - 책은 vue cli 2.0
+ - 디자인 -> flex로 진행, vuetify
+ - node.js - 자바스크립트 파일 실행 가능, 서버 
+ - SPA - 새로고침 없이 화면 변경 가능. 비동기로 
+ - 크로스 브라우징 안됨 - 자바스크립트 단점 
+ - 박스 모델링 
+ - node.js 는 vue-cli 사용할 때 설치 
+ - new Vue : vue instance 생성  
+ - vue hook -> 라이프사이클 
+ - templates(태그 요소) 를 묶어주는 것이 Component -> 부모 자식 관계  -> 프롭스(props) 에밋
+ - 라우터 : 페이지 간 이동 
+ - 디렉티브 : v-on, v-if -> 제어와 이벤트를 걸 수 있는 접두어
+
+ 2교시 
+ - 공식사이트에서 https://cdn.jsdelivr.net/npm/vue@2.6.0 -> 파일로 저장 확장명 js 
+ - npm은 node 설치 후 실행 가능 
+ - 크롬 -> vue.js devtools 확장프로그램 추가 
+ - vscode -> open in browser 설치
+             Korean Language Pack for Visual Studio Code 설치 
+             Vetur 설치 
+- vscode 설정 -> zoom 체크 
+          editor.hover 호버표시 여부 체크 해제. mdn 뜨는거 방지 
+- ctrl + ! -> html 자동생성 
+div#wrap
+- alt + b -> html 실행 
+- vscode -> live server 설치 
+- html 파일 오른쪽 아래 go live 버튼 클릭 
+- 크롬 개발자 도구에서 vue 탭 보이지 않을 때 
+    - https://vuejs.org/js/vue.js 으로 다운 받아서 하기 // 개발자 모드
+- 관건은 이걸 응용해야 함 -> 무엇을 만들어볼까 뭐가 좋은 아이디어일까
+- 템플릿(하위) 컴포넌트(상위) 
+
+3교시
+- 선언적 렌더링 
+- 픽사베이 -> 사진 가지고 올 수 있는 곳 
+table>tr>td*2 엔터치면 테이블 자동생성됨
+sass 
+v-bind:href -> 약식 가능
+:href
+v-if
+v-for -> 반복문 두 가지 
+이벤트 처리 
+v-on:click
+@click 
+예습도 해야함 
+ul>li.slide.slide${글자$}
+젠코딩 
+div#wrap>section#section$*10
+div>p*3>lorem

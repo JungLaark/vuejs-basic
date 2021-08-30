@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Router 웹페이지 링크 이동 네임드 뷰(네임드 라우터뷰)</title>
+    <script src="./vue/vue.js"></script>
+    <script src="./vue/axios.min.js"></script>
+    <script src="./vue/vue-router.js"></script>
+
+</head>
+<body>
+<div id="wrap">
+    <div id="app">
+        <!--2 라우터 뷰 -->
+        <div id="view">
+            <router-view name='headerview'></router-view>  <!-- 헤더영역 header -->
+            <router-view></router-view>                    <!-- 본문영역 body Default component -->
+            <router-view name='footerview'></router-view>  <!-- 푸터영역 foter -->
+        </div>
+    </div>
+    <script>
+        //3. 콤포넌트 변수 : 템플릿트
+        var  headerComponent = {
+            template:"\
+                   <header id='header'>\
+                     <div id='link'>\
+                        <div class='wrap'>\
+                        <ul>\
+                            <li><router-link to='/main'>HOME</router-link></li>\
+                            <li><router-link to='/main1'>MAIN-1</router-link></li>\
+                            <li><router-link to='/main2'>MAIN-2</router-link></li>\
+                            <li><router-link to='/main3'>MAIN-3</router-link></li>\
+                            <li><router-link to='/main4'>MAIN-4</router-link></li>\
+                        </ul>\
+                       </div>\
+                       </div>\
+                     </header>\
+                     "          //`백틱 이거 지원안하는거 많음 
+        }
+        var  bodyComponent = {
+            template:"\
+                     <main id='main'>\
+                        <div class='wrap'>\
+                        <h2>BODY MAIN home 영역</h2>\
+                        </div>\
+                     </main>\
+                     "
+        }
+        var  main1Component = {
+            template:"\
+                     <main id='main1'>\
+                        <div class='wrap'>\
+                        <h2>BODY MAIN1 영역</h2>\
+                        </div>\
+                     </main>\
+                     "
+        }
+        var  main2Component = {
+            template:"\
+                     <main id='main2'>\
+                        <div class='wrap'>\
+                        <h2>BODY MAIN2 영역</h2>\
+                        </div>\
+                     </main>\
+                     "
+        }
+        var  main3Component = {
+            template:"\
+                     <main id='main3'>\
+                        <div class='wrap'>\
+                        <h2>BODY MAIN3 영역</h2>\
+                        </div>\
+                     </main>\
+                     "
+        }
+        var  main4Component = {
+            template:"\
+                     <main id='main4'>\
+                        <div class='wrap'>\
+                        <h2>BODY MAIN4 영역</h2>\
+                        </div>\
+                     </main>\
+                     "
+        }
+        var  footerComponent = {
+            template:"\
+                     <footer id='footer'>\
+                        <div class='wrap'>\
+                        <h2>HEADER 영역</h2>\
+                        </div>\
+                     </footer>\
+                     "
+        }
+
+        //4. 라우터변수 = 생성자 
+        var newVueRouter = new VueRouter({
+            routes: [
+                {
+                   path:'/',
+                   components: {
+                        default: bodyComponent,
+                        headerview: headerComponent,
+                        footerview: footerComponent
+                   }  
+                },
+                {
+                   path:'/home',
+                   components: {
+                        default: bodyComponent,
+                        headerview: headerComponent,
+                        footerview: footerComponent
+                   }  
+                },
+                {
+                   path:'/main1',
+                   components: {
+                        default: main1Component,
+                        headerview: headerComponent,
+                        footerview: footerComponent
+                   }  
+                },
+                {
+                   path:'/main2',
+                   components: {
+                        default: main2Component,
+                        headerview: headerComponent,
+                        footerview: footerComponent
+                   }  
+                },
+                {
+                   path:'/main3',
+                   components: {
+                        default: main3Component,
+                        headerview: headerComponent,
+                        footerview: footerComponent
+                   }  
+                },
+                {
+                   path:'/main4',
+                   components: {
+                        default: main4Component,
+                        headerview: headerComponent,
+                        footerview: footerComponent
+                   }  
+                }
+            ]
+        });
+
+        //5. 뷰 인스턴스 생성
+        new Vue({
+            data:{
+                title:'라우터 네임드 뷰'
+            },
+            router: newVueRouter
+        }).$mount('#app'); //el:'#app'
+
+    </script>
+    <style>
+        * {margin:0;padding:0;vertical-align:middle;border:0;}
+        html,body {width:100%;height:100%;}
+        body {font:normal 14px/1 'arial', '굴림';color:#212121;background:#fff;}
+        a {color:#212121;text-decoration:none;}
+        a:hover{color:#c99}
+        a:focus{color:#c99}
+        ul, li{list-style: none;}
+
+        #wrap {width:100%;height:100%;}
+        #app {width:100%;height:100%;}
+        #app h1 {text-align:center;font-size:30px;padding:50px 0;}
+    
+        /* 라우터 링크 */
+        #nav {padding:50px 0;}
+        #nav div {width:100%;text-align:center;}
+        #nav div a {display:inline-block;margin:0 30px;font-size:16px;} /* <router-link> */
+        #nav div a:hover {color:#39c;} /* <router-link> */
+
+        /* 라우터 뷰 박스 - 네임드 뷰*/
+        #view {width:100%;;margin:0 auto;text-align:center;background:#f0f0f0;height:400px;}
+        #view #header {width:100%;;text-align:center;background:#c99;height:100px;color:#fff;}
+        #view #header .wrap{display: flex; flex-flow: row nowrap;}
+        #view #header .wrap #link{margin-left: auto; line-height: 100px;}
+        #view #header .wrap #link ul{display: flex;}
+        #view #header .wrap #link ul li{margin-left: 30px;}
+        #view #header .wrap #link ul li a{font-size: 17px; font-weight: 500; color: #fff; letter-spacing: 1px;}/*라우터 링크*/
+        #view #header .wrap #link ul li a:hover{color:#000;}/*라우터 링크*/
+
+        .router-link-active{color:#000;}
+
+        #view #main   {width:100%;;text-align:center;background:#99c;height:700px;line-height:700px;color:#fff;}
+        #view #main1   {width:100%;;text-align:center;background:#c99;height:700px;line-height:700px;color:#fff;}
+        #view #main2   {width:100%;;text-align:center;background:#cc9;height:700px;line-height:700px;color:#fff;}
+        #view #main3   {width:100%;;text-align:center;background:#999;height:700px;line-height:700px;color:#fff;}
+        #view #main4   {width:100%;;text-align:center;background:#99c;height:700px;line-height:700px;color:#fff;}
+        #view #footer {width:100%;;text-align:center;background:#555;height:200px;line-height:200px;color:#fff;}
+
+        .wrap{width: 1170px; margin: 0 auto;}
+
+    </style>
+</div>
+</body>
+</html>

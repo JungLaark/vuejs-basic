@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>컴포넌트 스코프 비교</title>
+    <script src="../../vue/_vue.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        <div id="app1">
+            <hr>
+            <global-comp></global-comp>
+            <local-comp></local-comp>
+        </div>
+        <div id="app2">
+            <hr>
+            <global-comp></global-comp>
+            <local-comp></local-comp>
+        </div>
+        <div id="app3">
+            <hr>
+            <global-comp></global-comp>
+            <local-comp></local-comp>
+        </div>
+        <div id="global">
+            <hr>
+            <global-comp v-bind:propstitle='title'></global-comp>
+            <local-comp></local-comp>
+        </div>
+        <div id="local">
+            <hr>
+            <global-comp v-bind:localprops='title'></global-comp>
+            <local-comp></local-comp>
+        </div>
+    </div>
+    <script>
+
+        Vue.component('global-comp',{
+            props : ['propstitle'],
+            template : "\
+                        <div class='temp'>\
+                            <h1>global component</h1>\
+                        </div>\
+                        <div class='title'>\
+                            <h1>props : {{propstitle}}</h1>\
+                        </div>\
+                        "
+        });
+
+        var localComp = {
+            template : "<div class='title'><h1>local component</h1></div>"
+        }
+
+        var localCompProps = {
+            props : ['localprops'],
+            template : "\
+                        <div class='title'>\
+                            <h1>props : {{localprops}}</h1>\
+                        </div>\
+                        "
+        }
+
+
+        new Vue({
+            el : "#app1",
+            data : {
+                title : "App1 component title"
+            },
+            components : {
+                'local-comp' : localComp
+            }
+        });
+        new Vue({
+            el : "#app2",
+            data : {
+                title : "App2 component title"
+            },
+            components : {
+                'local-comp' : localComp
+            }
+        });
+        new Vue({
+            el : "#app3",
+            data : {
+                title : "App3 component title"
+            }
+        });
+
+        new Vue({
+            el : "#global",
+            data : {
+                title : "props global title"
+            }
+        });
+
+        new Vue({
+            el : "#local",
+            data : {
+                title : "props local title"
+            }
+        });
+    </script>
+    <style>
+        .title {font-size: 70px; color: #39c; text-align: center;}
+        .temp {font-size: 70px; color: #39c; text-align: center;}
+    </style>
+</body>
+</html>

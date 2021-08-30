@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Router 웹페이지 링크 이동 네스티드 뷰(자식요쇼에 라우터뷰)</title>
+    <script src="./vue/vue.js"></script>
+    <script src="./vue/axios.min.js"></script>
+    <script src="./vue/vue-router.js"></script>
+
+</head>
+<body>
+<div id="wrap">
+    <div id="app">
+        <ul class="menu-box">
+            <li v-for="data in linkArr">
+                <router-link v-bind:to="data.tolink">{{data.txtlink}}}</router-link>
+            </li>
+        </ul>
+
+        <router-view></router-view>
+
+    </div>
+    <script>
+
+        // var comp1 = {
+        //     props : ['link'],
+        //     template : "\
+        //                 <div>\
+        //                     {{link.tolink}}\
+        //                 </div>\
+        //     "
+        // }
+
+        var component1 = {
+            template:"\
+                     <div id='page1' class='page'>\
+                        <h2>PAGE-1 내용 입니다.</h2>\
+                     </div>\
+                     "
+        }
+        var component2 = {
+            template:"\
+                     <div id='page2' class='page'>\
+                        <h2>PAGE-2 내용 입니다.</h2>\
+                     </div>\
+                     "
+        }
+        var component3 = {
+            template:"\
+                     <div id='page3' class='page'>\
+                        <h2>PAGE-3 내용 입니다.</h2>\
+                     </div>\
+                     "
+        }
+
+        var component4 = {
+            template:"\
+                     <div id='page4' class='page'>\
+                        <h2>PAGE-4 내용 입니다.</h2>\
+                     </div>\
+                     "
+        }
+
+        var component5 = {
+            template:"\
+                     <div id='page5' class='page'>\
+                        <h2>PAGE-5 내용 입니다.</h2>\
+                     </div>\
+                     "
+        }
+
+        var vueRouter = new VueRouter({
+            routes : [
+                {   //default 
+                    path : '/',
+                    template : component1
+                },
+                {
+                    path : '/main1',
+                    template : component1
+                },
+                {
+                    path : '/main2',
+                    template : component2
+                },
+                {
+                    path : '/main3',
+                    template : component3
+                },
+                {
+                    path : '/main4',
+                    template : component4
+                },
+                {
+                    path : '/main5',
+                    template : component5
+                },
+            ]
+        });
+
+        new Vue({
+            el : "#app",
+            router : vueRouter,
+            data : {
+                linkArr : [
+                    {tolink : '/main1', txtlink : 'main1 page'},
+                    {tolink : '/main2', txtlink : 'main2 page'},
+                    {tolink : '/main3', txtlink : 'main3 page'},
+                    {tolink : '/main4', txtlink : 'main4 page'},
+                    {tolink : '/main5', txtlink : 'main5 page'}
+                ]
+            }
+        });
+
+    </script>
+
+
+    <style>
+        * {margin:0;padding:0;vertical-align:middle;border:0;}
+        html,body {width:100%;height:100%;}
+        body {font:normal 14px/1 'arial', '굴림';color:#212121;background:#fff;}
+        a {color:#212121;text-decoration:none;}
+
+
+        #wrap {width:100%;height:100%;}
+        #app {width:100%;height:100%;}
+        #app h1 {text-align:center;font-size:30px;padding:50px 0;}
+    
+        /* 라우터 링크 */
+        #nav {padding:50px 0;}
+        #nav div {width:100%;text-align:center;}
+        #nav div a {display:inline-block;margin:0 30px;font-size:16px;} /* <router-link> */
+        #nav div a:hover {color:#39c;} /* <router-link> */
+
+
+        /* 라우터 뷰 박스 - 네임드 뷰*/
+        #view {width:100%;;margin:0 auto;text-align:center;background:#f0f0f0;height:400px;}
+
+        .menu-box{width: 100%;text-align: center; padding: 100px 0;}
+        .menu-box li{display: inline-flex; margin: 0 30px;}
+        .menu-box li a{font-size: 16px; color:#39c;}
+        
+        .view-box {width: 1170px; margin: 0 auto; height: 100px; background: #fff; text-align: center;}
+        
+
+    </style>
+
+
+</div>
+</body>
+</html>

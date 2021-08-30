@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뷰 템플릿과 디렉티브</title>
+    <!--vuejs 라이브러리 가져옴-->
+    <script src="../../vue/_vue.js"></script>
+    <style>
+        img{width: 50%;}
+        #app {text-align: center;}
+
+        #app2 {text-align: center;padding: 100px 0;}
+        .main-title {font-size: 60px;color: #39b;text-align: center;}
+        #app3{padding: 100px 0; text-align: center;}
+        #app3 .title{font-size: 60px; text-align: center; color: #c77;}
+        #app3 ul{width: 600px; margin: 0 auto;}
+        #app3 ul li{border-bottom: 1px solid #ccc; line-height: 50px; text-align: center; }
+        #app3 ul li span{margin: 0 50px;}
+
+        #app4 {padding:100px 0; text-align: center;}
+        #app4 table {width:300px; margin: 0 auto;}
+        #app4 table th {font-size: 17px;}
+        #app4 table td {text-align: center; font-size: 16px;}
+
+        #app4 table, th, td{border:1px solid #ccc;height: 50px;}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>{{title}}</h1>
+        <!-- <h1 onclick="함수이름">{{title}}</h1> -->
+        <!--이벤트를 건다 버튼으로//v-on에는 이벤트를 발생시키는 함수를 쓴다-->
+        <button v-on:click='eventFn'>버튼 클릭</button>
+        <button @click='eventFn2'>v-on약식 버튼 클릭</button>
+        <button @click='addEventFn'>클릭 시 1씩 증가</button>
+        <button @click='subEventFn'>클릭 시 1씩 감소</button>
+        <button @click='btnEvent'>배열처리버튼</button>
+        <h1>{{cnt}}</h1>
+
+        <hr>
+        <table>
+            <tr>
+                <th>No.</th>
+                <th>과목</th>
+            </tr>
+            <tr v-for="(item, idx) in arr">
+                <th>{{idx + 1}}</th>
+                <th>{{item}}</th>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        //객체 생성 in javascript
+        // var test = {
+        //     init: function(){
+
+        //     },
+        // };
+
+        new Vue({
+            el:'#app',
+            data:{
+                title:'V-on Directive and Method',
+                cnt:0,
+                msg: 'vue.js, react.js, javascript, jquery, nodejs',
+                arr: []
+
+            },
+            methods:{
+                //이크마 5
+                eventFn: function(){ //리터럴 함수 (in javascript)
+                    alert('v-on 클릭');
+                    //상위 컴포넌트의 title 수정하는 메서드 이벤트 
+                    this.title = '이름 변경됨 ';
+                },
+                 //이크마 6
+                 eventFn2(){
+                     alert('v-on 약식 이크마6 클릭');
+                     this.title = '이름 변경됨2 ';
+                 },
+                 addEventFn(){
+                     this.cnt++;
+
+                     this.cnt > 100 ? this.cnt=100 : this.cnt;
+                 },
+                 subEventFn(){
+                     this.cnt--;
+                     this.cnt < 0 ? this.cnt=0 : this.cnt;
+                 },
+                 btnEvent(){
+                    this.arr = this.msg.split(',');
+                    console.log(this.arr);
+                 }
+                 
+            }
+        });
+    </script>
+    <style>
+        table {width: 300px; margin: 0 auto; border-collapse: collapse;}
+        table th {border: 1px solid #ccc; }
+        table td {border: 1px solid #ccc;text-align: center;}
+    </style>
+
+
+ul>li.slide.slide${글자}
+ul>li.slide.slide${글자$}
+
+div#wrap>section#section$*10   
+<div id="wrap">
+    <section id="section1"></section>
+    <section id="section2"></section>
+    <section id="section3"></section>
+    <section id="section4"></section>
+    <section id="section5"></section>
+    <section id="section6"></section>
+    <section id="section7"></section>
+    <section id="section8"></section>
+    <section id="section9"></section>
+    <section id="section10"></section>
+</div>
+
+div>p*3>lorem
+<div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, natus doloribus. Consequuntur vero delectus praesentium nulla nostrum repudiandae expedita a est assumenda dolorum? Nihil obcaecati recusandae dicta iste nemo quo?</p>
+    <p>Consequatur corrupti natus atque voluptas optio vitae saepe veritatis commodi beatae accusantium adipisci maiores, blanditiis dolore et ipsum placeat enim perspiciatis? Nesciunt, ratione nostrum dignissimos illo quis eaque error obcaecati.</p>
+    <p>Sunt atque dolorem enim deserunt eveniet cum maxime optio. Fuga dignissimos blanditiis iste quaerat sequi, assumenda ad facere, quas, hic corrupti est repudiandae. Officiis ut aut nesciunt suscipit nostrum eveniet.</p>
+</div>
+
+
+
+</body>
+</html>

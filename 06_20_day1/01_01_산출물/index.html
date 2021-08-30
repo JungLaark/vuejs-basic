@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--vuejs 라이브러리 가져옴-->
+    <script src="./vue/_vue.js"></script>
+
+</head>
+<body>
+    <div id="wrap">
+        <h1>머스테쉬를 이용하여 데이터 바인딩 함 {{msg}}</h1>
+        <h2>{{title}}</h2>
+        <hr>
+        디렉티브 테스트 : 
+        <!-- <a v-bind:href="url" v-bind:title='atitle'>네이버</a> -->
+        이건 약식 
+        <a :href="url" :title='atitle'>네이버</a>
+    </div>
+    <script>
+        //vue 인스턴스 샌성
+        new Vue({   //프로퍼티 : value
+            el:'#wrap', //element -> 엘리먼트 네임. 선택자 (root) #아이디임 .는 class
+            data:{
+                msg : "vue root의 인스턴스 생성!",
+                title : "vue 변수 등록 값을 넣고 사용 : 맴버 변수",
+                arr : ['1', '2', '이거슨 배열 선언'],
+                a : true,
+                atitle : '네이버',
+                url : "http://www.naver.com"
+            },
+            method:{
+
+            },
+            //라이프 사이클 확인용
+            beforeCreate: function(){
+                console.log("1.beforeCreate");
+            },
+            created: function(){
+                console.log("2.created");
+            },
+            // methods: function () {
+            //     console.log("method");
+            // },
+            beforeMount: function(){
+                console.log("3.beforeMount");
+            },
+            mounted: function(){
+                console.log("4.mounted");
+                //제이쿼리 사용 적합한 위치 
+            },
+            beforeUpdate: function(){
+                //수정될 때 찍히는 것임
+                console.log("5.beforeUpdate");
+            },
+            updated: function(){
+                console.log("6.updated");
+            }
+        });
+    </script>
+</body>
+</html>

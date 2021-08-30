@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../vue/_vue.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        <test1-comp v-bind:p1="testData"></test1-comp>
+        <test2-comp></test2-comp>
+        <test3-comp></test3-comp>
+    </div>
+    <div id="global">
+        
+        <test1-comp></test1-comp>
+        <test2-comp></test2-comp>
+    </div>
+    <script>
+
+        Vue.component('test2-comp', {
+            template:"<div><h2>global</h2></div>"
+        })
+
+        var test1 = {
+            props: ['p1'],
+            template : "\
+                        <div>{{p1}}</div>\
+                        "
+        }
+
+        new Vue({
+            el : "#global",
+            data : {
+                title : "global component"
+            }
+        });
+        
+
+        new Vue({
+            el : "#wrap",
+            data : {
+                testData : 1111
+            },
+            components : {
+                'test1-comp' : test1
+            }
+        });
+
+
+
+    </script>
+</body>
+</html>

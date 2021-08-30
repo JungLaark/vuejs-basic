@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>axios with php</title>
+    <script src="./vue.js/lib/vue.js"></script>
+    <script src="./vue.js/lib/axios.min.js"></script>
+
+</head>
+<body>
+    <div id="wrap">
+        <div id="app">
+            <h1>form axios with php</h1>
+            <form action="" method="post">
+                <table>
+                    <tr>
+                        <td>name</td>
+                        <td><input type="text" name="name" id="name" v-model="name"></td>
+                    </tr>
+                    <tr>
+                        <td>e-mail</td>
+                        <td><input type="email" name="email" id="email" v-model="email"></td>
+                    </tr>
+                    <tr>
+                        <td>message</td>
+                        <td><input type="text" name="msg" id="msg" v-model="msg"></td>
+                    </tr>
+                </table>
+                <button v-on:click.prevent="btnSubmit">submit</button>
+            </form>
+
+            <table>
+                <tr>
+                    <th>이름</th>
+                    <th>이메일</th>
+                    <th>메시지</th>
+                </tr>
+                <tr >
+                    <td v-for="item in result">{{item}}</td>
+                </tr>
+            </table>
+      
+        </div>
+        <script>
+            new Vue({
+                el : "#app",
+                data : {
+                    name : "",
+                    email : "",
+                    msg : "",
+                    result : []
+                },
+                created : function(){
+                },
+                methods : {
+                    btnSubmit : function(){
+                        //유효성 검사 
+                        if(this.name != '' &&  this.email != '' && this.msg != '' ){
+
+                            var that = this;
+                            //폼 데이터 생성자
+                            formData = new FormData();
+
+                            formData.append('name', this.name);//jquery
+                            formData.append('email', this.email);
+                            formData.append('msg', this.msg);
+                            
+                            axios.post("./resp.php", formData)//post로 하면 안됨 
+                                .then((res)=>{ //응답
+                                    console.log("완료" + res.data);
+                                    that.result = res.data.split(',');
+
+                                    that.name = '';
+                                    that.email = '';
+                                    that.msg = '';
+                                })
+                        }
+                        else{
+                            alert("입력하지 않은 항목이 있습니다.");
+                            return false;
+                        }
+                    }
+                }
+            });
+        </script>
+        <style>
+            /*기본 설정*/
+            * {margin: 0;padding: 0;vertical-align: middle;border: 0;}
+            html, body{width: 100%; height: 100%;}
+            body{font: normal 14px/1 'arial', '맑은 고딕';color: #212121; background: #fff;}
+            /*부가 설정*/
+            #wrap{ width: 100%; height: 100%;}
+            #app{ width: 100%; height: 100%;}
+            #app h1{ text-align: center; font-size: 30px; padding: 100px 0;}
+
+            table{margin:30px auto; border-collapse: collapse; border: 2px solid #000;width: 600px; background: #f0f0f0;}
+            table th,
+            table td{padding: 5px 30px; text-align: center; border: 1px solid #ccc;}
+            table th{background: #f0f0f0; height: 50px; padding: 0; border-bottom: 1px solid #000;}
+            table tr:hover{background: #f0f0f0;} /*row*/
+
+            table caption{padding: 20px 0; font-size: 30px; font-weight: bold;}
+            /*form*/
+            table td input[type='text'],
+            table td input[type='email'] {width: 100%; height: 30px; background: #fff;}
+            
+            button{width: 200px; height: 50px; background: #000; color: white; font-size: 14px; margin: 0 auto;display: block; border-radius: 5px;cursor: pointer; transition:all .3s}
+            button:hover{background: #944;}
+
+        </style>
+    </div>
+</body>
+</html>

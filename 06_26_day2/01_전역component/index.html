@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Global Components</title>
+    <script src="../../vue/_vue.js"></script>
+</head>
+<body>
+    <!-- div#wrap 이건 묶어 주는거 -->
+    <div id="wrap">
+
+        <!-- jsx -->
+        <header-component></header-component>
+
+        <!--ㅣ이걸 컴포넌트에 넣어야 함-->
+        <header id="header">
+            <!-- div.wrap>div.gap>div.container 1170 -->
+            <div class="wrap"><!--contents의 길이-->
+                <div class="gap"> <!--여백만 주는거-->
+                    <div class="container">
+                        <!-- h1.logo+nav.nav -->
+                        <h1 class="logo">
+
+                        </h1>
+                        <nav class="nav">
+                            <!-- ul>li*6>a>{ABOUT} -->
+                            <ul>
+                                <li><a href="#">ABOUT</a></li>
+                                <li><a href="#">SERVICES</a></li>
+                                <li><a href="#">PORTFOLIO</a></li>
+                                <li><a href="#">AWARDS</a></li>
+                                <li><a href="#">BLOG</a></li>
+                                <li><a href="#">CONTACT</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main id="main">
+            <!-- section#section$*12 -->
+            <section id="seciton1">
+                <!--메인 슬라이드-->
+            </section>
+            <section id="seciton2"></section>
+            <section id="seciton3"></section>
+            <section id="seciton4"></section>
+            <section id="seciton5"></section>
+            <section id="seciton6"></section>
+            <section id="seciton7"></section>
+            <section id="seciton8"></section>
+            <section id="seciton9"></section>
+            <section id="seciton10"></section>
+        </main>
+        <footer id="footer">
+
+        </footer>
+    </div>
+    
+    
+    <script>
+
+    </script>
+
+</body>
+</html>

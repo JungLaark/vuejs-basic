@@ -1,0 +1,38 @@
+20210710
+
+1.day5 - 04_02부터 
+     -> 이걸 자동으로 딜레이를 둬서 이동하게끔 하려면? 
+      - named view
+
+2.04_04 -> css 확인해보기 뭔가 틀렸나보다 
+
+3. cli
+ - git bash 설치 
+ - vscode 에서 git bash 실행
+ - nodejs.org 에서 lts 설치 
+ - 컨트롤 + 백릿
+
+ git bash 에서 진행 
+ - npm i -g @vue/cli
+ - vue --version // 버전 확인 
+ - vue init -> 2.0 버전 
+ - vue create -> 3.0 버전 
+
+새로운 프로젝트 폴더 생성 후 
+vue create dailytodo
+default 2 선택 
+
+프로젝트 폴더에서 npm run serve
+
+
+4. 2.* 버전 설치 
+ npm install -g @vue/cli-init
+ vue init webpack-simple todoinit
+ 모두 no
+ npm i 
+ npm run dev
+
+ webpack.config.js 가 있고 없고의 차이 
+
+ div#header>div.wrap
+ div.title>h1{Header}

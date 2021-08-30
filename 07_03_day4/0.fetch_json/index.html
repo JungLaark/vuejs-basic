@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch</title>
+    <script src="../../vue/_vue.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        <div id="app">
+            <h1>{{subject}}</h1>
+            <table>
+                <caption>성적</caption>
+                <tr>
+                    <th>학번</th>
+                    <th>이름</th>
+                    <th>국어</th>
+                    <th>영어</th>
+                    <th>수학</th>
+                    <th>총점</th>
+                    <th>평균</th>
+                </tr>
+                <tr v-for="item in grade">
+                    <td>{{item.학번}}</td>
+                    <td>{{item.이름}}</td>
+                    <td>{{item.kor}}</td>
+                    <td>{{item.eng}}</td>
+                    <td>{{item.mat}}</td>
+                    <td>{{item.mat + item.kor + item.eng}}</td>
+                    <td>{{Math.round((item.mat + item.kor + item.eng)/3)}}</td>
+                </tr>
+            </table>
+
+            <table>
+                <caption>연락처</caption>
+                <tr>
+                    <th>학번</th>
+                    <th>이름</th>
+                    <th>전화번호</th>
+                </tr>
+                <tr v-for="item in phone">
+                    <td>{{item.학번}}</td>
+                    <td>{{item.이름}}</td>
+                    <td>{{item.tel}}</td>
+                </tr>
+            </table>
+
+            <table>
+                <caption>할 일</caption>
+                <tr>
+                    <th>학번</th>
+                    <th>이름</th>
+                    <th>할 일</th>
+                </tr>
+                <tr v-for="item in todo">
+                    <td>{{item.학번}}</td>
+                    <td>{{item.이름}}</td>
+                    <td>{{item.todo}}</td>
+                </tr>
+            </table>
+
+            <!-- <div v-for="(data, idx) in grade">{{data.학번}}</div> -->
+        </div>
+        <script>
+            new Vue({
+                el : "#app",
+                data : {
+                    subject : "fetch json async",
+                    grade : [],
+                    phone : [],
+                    todo : []
+                },
+                created : function(){
+                    console.log("created hook 진입");
+                    //ecma6
+                    // fetch("./data/data.json").then((res)=>{
+                    //     console.log(res);
+                    // })
+
+
+                    //ecma5 
+                    //체인 방식 jquery   
+                    fetch("./data/data.json").then(function(res){
+                        
+                        if(res.ok){
+                            return res.json();
+                        }
+                    }).then((data)=>{
+                        //화살표 함수가 아니면 배열에 json data 넣을 수 없다
+                        this.grade = data.성적표;
+                        this.phone = data.연락처;
+                        this.todo = data.일정표;
+
+                    })
+                }
+            });
+        </script>
+        <style>
+            /*기본 설정*/
+            * {margin: 0;padding: 0;vertical-align: middle;border: 0;}
+            html, body{width: 100%; height: 100%;}
+            body{font: normal 14px/1 'arial', '맑은 고딕';color: #212121; background: #fff;}
+            /*부가 설정*/
+            #wrap{ width: 100%; height: 100%;}
+            #app{ width: 100%; height: 100%;}
+            #app h1{ text-align: center; font-size: 30px; padding: 100px 0;}
+
+            table{margin:30px auto; border-collapse: collapse; border: 2px solid #000;}
+            table th,
+            table td{padding: 15px 30px; text-align: center; border: 1px solid #ccc;}
+            table th{background: #f0f0f0; height: 50px; padding: 0; border-bottom: 1px solid #000;}
+            table tr:hover{background: #f0f0f0;} /*row*/
+
+            table caption{padding: 20px 0; font-size: 30px; font-weight: bold;}
+
+        </style>
+    </div>
+</body>
+</html>

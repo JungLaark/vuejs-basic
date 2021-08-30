@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>global component props</title>
+    <script src="../../vue/_vue.js"></script>
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="brando">
+            <!-- vue instance root 
+            <h1>{{title}}</h1> -->
+            <!-- vue component 가상요소가 올 자리 -->
+            <!--fixed-->
+            <!-- <header-component 프롭스 속성명='루트의 변수이름'></header-component> -->
+            <!-- <header-component v-for='item in menuArray' :menu='item'></header-component> -->
+            <header-component></header-component>
+            <main id="main">
+                <!--이것이 상위-->
+                <section1-component></section1-component>
+                <section2-component></section2-component>
+                <section3-component></section3-component>
+                <section4-component></section4-component>
+            </main>
+        </div>
+        <script>
+            //add vue global component
+            //자식요소 템플릿을 안에 넣어준다 
+            //Vue.component(가상 컴포넌트 이름,{})
+            //항상 wrapping을 해줘야 한다 
+            //속성 값은 홑 따옴표, 
+            //로고랑 nav 메뉴 나오는 그리드
+            //줄 끝은 역슬래시 
+            //props 로 아래거 조정가능 
+            //emit은 하위에서 상위로 
+            // 아래처럼 하면 전체가 반복됨 
+            // var headerComponent = {
+            //     // template: "<div class='wrap'><h1><a href='#'><img src='./img/london.jpg'></a></h1></div>"
+            //     //이것이 하위
+            //     props:['menu'], //위에서 아래로
+            //     template: "\
+            //                 <header id='header'>\
+            //                     <div class='wrap'>\
+            //                         <div class='gap'>\
+            //                             <div class='container clearfix'>\
+            //                                 <h1>\
+            //                                     <a href='#' ><img src='../../06_26_day2/01_전역component/img/logo-photography.png' alt='logo'></a>\
+            //                                 </h1>\
+            //                                 <nav>\
+            //                                     <ul>\
+            //                                         <li><a href='#'>{{menu}}</li>\
+            //                                     </ul>\
+            //                                 </nav>\
+            //                             </div>\
+            //                         </div>\
+            //                     </div>\
+            //                 </header>\
+            //     "
+            // };
+
+            var headerComponent = {
+                // template: "<div class='wrap'><h1><a href='#'><img src='./img/london.jpg'></a></h1></div>"
+                //이것이 하위
+                //props:['menu'], //위에서 아래로
+
+                template: "\
+                            <header id='header'>\
+                                <div class='wrap'>\
+                                    <div class='gap'>\
+                                        <div class='container clearfix'>\
+                                            <h1>\
+                                                <a :href='hrefUrl' ><img v-bind:src='imgUrl' :alt='altText'></a>\
+                                            </h1>\
+                                            <nav>\
+                                                <ul>\
+                                                    <li v-for='item in menuArray'><a href='#'>{{item}}</li>\
+                                                </ul>\
+                                            </nav>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </header>\
+                ",
+                data : function() { //이것은 함수로 인식한다
+                    return {//반드시 return 이 있어야 함 
+                        menuArray : ['ABOUT','SERVICES', 'PORTFOLIO', 'AWARDS' ],
+                        imgUrl : '../../06_26_day2/01_전역component/img/logo-photography.png',
+                        //이미지 //루트에서 가지고 오는 방법도 있고 이렇게 바인딩 시켜주는 방법도 있다
+                        hrefUrl : 'http://www.naver.com'//속성명='return 내의 변수명'
+                        ,altText : 'Brando Logo Text'
+
+                    }
+                //ecma6 에서는 data(){} 이렇게 바뀜     
+
+                }
+            };
+
+            //section 1 
+            var sec1Comp = {
+                props:['propsdata1', 'propsdata2'],
+                template: "\
+                            <section id='section1' class='section'>\
+                                <div class='wrap'>\
+                                    <div class='gap'>\
+                                        <div class='container'>\
+                                            <div class='title'>\
+                                                <h2>{{title}}</h2>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </section>\
+                ",
+                data : function(){
+                    return {
+                        title : 'PEOPLE'   
+                    }
+                }
+
+            };
+
+            //section 2
+            var sec2Comp = {
+                props:['propsdata1', 'propsdata2'],
+                template: "\
+                            <section id='section2' class='section'>\
+                                <div class='wrap'>\
+                                    <div class='gap'>\
+                                        <div class='container'>\
+                                            <div class='title'>\
+                                                <h2 :title='tooltip'>{{title}}</h2>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </section>\
+                ",
+                data : function(){
+                    return {
+                        tooltip : 'nature tooltip',
+                        title : 'NATURE'
+                    }
+                }
+            };
+
+            //section 3
+            var sec3Comp = {
+                props:['propsdata1', 'propsdata2'],
+                template: "\
+                            <section id='section3' class='section'>\
+                                <div class='wrap'>\
+                                    <div class='gap'>\
+                                        <div class='container'>\
+                                            <div class='title'>\
+                                                <h2 :title='toolTip'>{{title}}</h2>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </section>\
+                ",
+                data : function(){
+                    return {
+                        toolTip : 'wildlife tooltip',
+                        title : 'WILDLIFE'
+                    }
+                }
+            };
+
+            //section 4
+            var sec4Comp = {
+                props:['propsdata1', 'propsdata2'],
+                template: "\
+                            <section id='section4' class='section'>\
+                                <div class='wrap'>\
+                                    <div class='gap'>\
+                                        <div class='container'>\
+                                            <div class='title'>\
+                                                <h2 :title='toolTip'>{{title}}</h2>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </section>\
+                ",
+                data : function(){
+                    return {
+                        toolTip : 'section4 tooltip ',
+                        title : 'section4 title'
+                    }
+                }
+
+            };
+
+            //이게 항상 아래에 있어야 함 
+            new Vue({
+                el: '#brando',
+                data: { 
+                    title : 'test',
+                    menu1 : 'test1',
+                    menu2 : 'test2',
+                    menu3 : 'test3',
+                    menu4 : 'test4'
+                    //,menuArray : ['ABOUT','SERVICES', 'PORTFOLIO', 'AWARDS' ]
+                    
+                },
+                components : {
+                    'header-component' : headerComponent,
+                    'section1-component' : sec1Comp,
+                    'section2-component' : sec2Comp,
+                    'section3-component' : sec3Comp,
+                    'section4-component' : sec4Comp
+                }
+    
+            });
+        </script>
+        <style scoped>
+            * {
+                margin: 0;
+                padding: 0;
+                vertical-align: middle;
+            }
+
+            /*reset*/
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+            }
+
+            body {
+                font: normal 14px/1 'arial';
+                color: #444;
+                background: #fff;
+            }
+
+            ul,
+            li {
+                list-style: none;
+            }
+
+            a {
+                color: #444;
+                text-decoration: none;
+            }
+
+            header,
+            main,
+            section,
+            footer,
+            nav,
+            aside {
+                display: block;
+            }
+
+            .clearfix::after {
+                content: '';
+                display: block;
+                clear: both;
+            }
+
+            /*기본*/
+            /* vue component and tamplate style  */
+            #wrap {
+                width: 100%;
+            }
+
+            /*전체 묶음*/
+            #wrap #brando {
+                width: 100%;
+            }
+
+            #wrap #brando #header {
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, .2);
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 3;
+            }
+
+            #wrap #brando #header .wrap {
+                width: 1170px;
+                margin: 0 auto;
+            }
+
+            #wrap #brando #header .wrap .gap {
+                margin: 0 15px;
+            }
+
+            #wrap #brando #header .wrap .gap .container {
+                width: 100%;
+                height: 75px;
+            }
+
+            #wrap #brando #header .wrap .gap .container h1 {
+                width: 156px;
+                float: left;
+                height: 30px;
+                padding: 22.5px 0;
+            }
+
+            #wrap #brando #header .wrap .gap .container h1 a {
+                display: block;
+                font-size: 12px;
+                font-weight: 600;
+            }
+
+            #wrap #brando #header .wrap .gap .container h1 a img {
+                width: 100%;
+            }
+
+            #wrap #brando #header .wrap .gap .container nav {
+                float: right;
+                padding: 31.5px 0;
+            }
+
+            #wrap #brando #header .wrap .gap .container nav ul {
+                display: inline-block;
+            }
+
+            #wrap #brando #header .wrap .gap .container nav ul li {
+                display: inline-block;
+                margin-left: 50px;
+            }
+
+            #wrap #brando #header .wrap .gap .container nav ul li a {
+                color: #fff;
+                font-size: 12px;
+                font-weight: 600;
+                transition: color .3s;
+            }
+
+            #wrap #brando #header .wrap .gap .container nav ul li a:hover {
+                color: #ccc;
+            }
+
+            #wrap #brando #main {
+                width: 100%;
+                position: relative;
+                z-index: 2;
+            }
+
+            #wrap #brando #main .section {
+                width: 100%;
+            }
+
+            #wrap #brando #main .section .wrap {
+                width: 1170px;
+                max-width: 1170px;
+                margin: 0 auto;
+            }
+
+            #wrap #brando #main .section .wrap .gap {
+                margin: 0 15px;
+            }
+
+            #wrap #brando #main .section .wrap .gap .container {
+                width: 100%;
+                height: 969px;
+                line-height: 969px;
+            }
+
+            #wrap #brando #main .section .wrap .gap .container .title {
+                text-align: center;
+            }
+
+            #wrap #brando #main .section .wrap .gap .container .title h2 {
+                font-size: 200px;
+                color: #fff;
+            }
+
+            #wrap #brando #main #section1 {
+                background: url(../../06_26_day2/01_전역component/img/photography-img1.jpg) no-repeat 50% 50% fixed;
+                background-size: cover;
+            }
+
+            #wrap #brando #main #section2 {
+                background: url(../../06_26_day2/01_전역component/img/photography-img2.jpg) no-repeat 50% 50% fixed;
+                background-size: cover;
+            }
+
+            #wrap #brando #main #section3 {
+                background: url(../../06_26_day2/01_전역component/img/photography-img3.jpg) no-repeat 50% 50% fixed;
+                background-size: cover;
+            }
+
+            #wrap #brando #main #section4 {
+                background: url(../../06_26_day2/01_전역component/img/photography-img4.jpg) no-repeat 50% 50% fixed;
+                background-size: cover;
+            }
+
+            #wrap #brando #main #section1 .wrap .gap .container .title h2 {
+                color: rgba(255, 255, 255, .5)
+            }
+
+            #wrap #brando #main #section2 .wrap .gap .container .title h2 {
+                color: rgba(255, 255, 255, .5)
+            }
+
+            #wrap #brando #main #section3 .wrap .gap .container .title h2 {
+                color: rgba(255, 239, 255, .5)
+            }
+
+            #wrap #brando #main #section4 .wrap .gap .container .title h2 {
+                color: rgba(255, 255, 255, .5)
+            }
+        </style>
+
+    </div>
+</body>
+
+</html>
